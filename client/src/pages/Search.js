@@ -5,7 +5,7 @@ import Book from "../components/Book"
 function Search() {
     const [books, setBooks] = useState([]);
     const [bookSearch, setBookSearch] = useState("");
-    const [savedBooks, setSavedBooks] = useState([])
+    const [savedBook, setSavedBooks] = useState({})
 
     const handleInputChange = event => {
         const { value } = event.target;
@@ -27,8 +27,9 @@ function Search() {
         .catch(err => console.log(err))
     };
 
-    const handleSave = (event) => {
-        console.log()
+    const handleSave = (name) => {
+        console.log(name)
+        let index = 0;
     };
 
     useEffect(()=>{
@@ -60,7 +61,6 @@ function Search() {
                 {
                     books.map((book,index) => (
                         <Book
-                            value={book.title}
                             handleSave={handleSave}
                             key={index}
                             author={book.author} 
