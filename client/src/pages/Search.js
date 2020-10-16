@@ -14,22 +14,28 @@ function Search() {
 
     const handleFormSubmit = event => {
         event.preventDefault();
-        API.getBooks(bookSearch)
+        API.searchBooks(bookSearch)
         .then(({data})=> {
             setBooks(data.items.map(book => ({
                 author: book.volumeInfo.authors,
                 description: book.volumeInfo.description,
                 image: book.volumeInfo.imageLinks.thumbnail,
                 link: book.volumeInfo.canonicalVolumeLink,
-                title: book.volumeInfo.title
+                title: book.volumeInfo.title,
+                id: book.id
             })))
         })
         .catch(err => console.log(err))
     };
 
-    const handleSave = (name) => {
-        console.log(name)
-        let index = 0;
+    const handleSave = (id) => {
+        for (let i in books) {
+            if (books[i].id === id)
+            setSavedBooks(books[i])
+        }
+        API.saveBook(savedBook)
+        .then(res=> console.log(res))
+        .catch(err => console.log(err))
     };
 
     useEffect(()=>{
@@ -68,6 +74,7 @@ function Search() {
                             title={book.title} 
                             image={book.image} 
                             link={book.link}
+                            id={book.id}
                         />
                     ))
                 }
